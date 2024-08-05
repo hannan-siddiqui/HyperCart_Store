@@ -16,10 +16,11 @@ const Navbar = () => {
   const [query, setQuery] = useState("");
 
   return (
-    <div className="sticky top-0 z-10 md:py-8 py-4 px-10 flex gap-10 justify-between items-center bg-[#ada1a1] text-[#141313] text-lg font-bold max-sm:px-2">
+    <div className="sticky top-0 z-10 md:py-8 py-4 md:px-10 flex gap-10 justify-between items-center bg-[#ada1a1] text-[#141313] text-lg font-bold ">
+
       <Link href="/">
         {/* <Image src="/path/to/logo.png" alt="logo" width={130} height={100} /> */}
-        <h1 className="text-red-700 font-extrabold text-2xl">Hyper_Cart</h1>
+        <h1 className="text-red-700 font-extrabold text-2xl ml-6">Hyper_Cart</h1>
       </Link>
 
       <div className="flex gap-4 text-base-bold max-lg:hidden">
@@ -59,22 +60,26 @@ const Navbar = () => {
         />
 
         {dropdownMenu && (
-          <div className="absolute top-12 right-5 flex flex-col gap-4 p-3 rounded-lg border bg-[#ada1a1] text-[#141313] text-xl font-extrabold lg:hidden">
-            <Link href="/" className="hover:text-red-500">
+          <div className="absolute  w-[300px] top-12 right-5 flex flex-col gap-4 p-3 rounded-lg border bg-[#ada1a1] text-[#141313] text-xl font-extrabold lg:hidden">
+
+            <Link href="/" className=" hover:text-red-500">
               Home
             </Link>
+
             <Link
               href={user ? "/wishlist" : "/sign-in"}
               className="hover:text-red-500"
             >
               Wishlist
             </Link>
+
             <Link
               href={user ? "/orders" : "/sign-in"}
               className="hover:text-red-500"
             >
               Orders
             </Link>
+
             <Link
               href="/cart"
               className="flex items-center gap-3 border rounded-lg px-2 py-1 hover:bg-black hover:text-white"
@@ -82,16 +87,20 @@ const Navbar = () => {
               <ShoppingCart />
               <p className="text-base-bold">Cart (0)</p>
             </Link>
+
           </div>
         )}
 
+        <div className="mr-10">
         {user ? (
           <UserButton afterSignOutUrl="/sign-in" />
         ) : (
-          <Link href="/sign-in">
+          <Link  href="/sign-in">
             <CircleUserRound />
           </Link>
         )}
+        </div>
+
       </div>
     </div>
   );

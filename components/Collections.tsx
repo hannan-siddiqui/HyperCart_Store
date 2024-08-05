@@ -7,7 +7,7 @@ const Collections = async () => {
   const collections = await getCollection();
 
   return (
-    <div className="  flex flex-col gap-10 py-8 pb-20 px-5 bg-[#ded2d2]">
+    <div className="  flex flex-col gap-10 py-8 pb-20  bg-[#ded2d2]">
       <p className=" mt-10 mb-6 ml-[13%] text-3xl font-extrabold text-neutral-900">Shop Our Top Categories</p>
       {!collections || collections.length === 0 ? (
         <p className="text-body-bold">No collections found</p>
