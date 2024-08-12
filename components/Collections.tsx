@@ -9,9 +9,11 @@ const Collections = async () => {
   return (
     <div className="  flex flex-col gap-10 py-8 pb-20  bg-[#ded2d2]">
       <p className=" mt-10 mb-6 ml-[13%] text-3xl font-extrabold text-neutral-900">Shop Our Top Categories</p>
+
       {!collections || collections.length === 0 ? (
         <p className="text-body-bold">No collections found</p>
       ) : (
+        
         <div className="flex flex-wrap items-center justify-center gap-8">
           {collections.map((collection: CollectionType) => (
             <Link href={`/collections/${collection._id}`} key={collection._id}>
