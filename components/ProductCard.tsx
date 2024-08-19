@@ -1,8 +1,9 @@
 "use client";
 
+import { Heart } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-// import HeartFavorite from "./HeartFavorite";
+
 
 interface ProductCardProps {
   product: ProductType;
@@ -23,12 +24,12 @@ const ProductCard = ({ product, updateSignedInUser }: ProductCardProps ) => {
         className="h-[250px] rounded-lg object-cover"
       />
       <div>
-        <p className="text-base-bold">{product.title}</p>
-        <p className="text-small-medium text-grey-2">{product.category}</p>
+        <p className="font-bold text-black text-2xl">{product.title}</p>
+        <p className=" font-semibold text-neutral-500">{product.category}</p>
       </div>
       <div className="flex justify-between items-center">
-        <p className="text-body-bold">${product.price}</p>
-        {/* <HeartFavorite product={product} updateSignedInUser={updateSignedInUser} /> */}
+        <p className="font-bold text-xl text-black">${product.price}</p>
+        <Heart className="text-red-400"  />
       </div>
     </Link>
   );
