@@ -1,29 +1,31 @@
 import User from "@/lib/models/User";
 import connect from "@/lib/mondoDB";
+
 import { auth } from "@clerk/nextjs/server";
 
 import { NextRequest, NextResponse } from "next/server";
 
-export const GET = async(req:NextRequest){
-    try {
+export const GET = async (req: NextRequest) => {
+  try {
+    const { userId } = auth()
 
-        const {userId} = auth();
-
-        if (!userId) return new NextResponse("unauthorized");
-
-        await connect();
-
-        let user = await User.findOne({clerkId:userId});
-
-        if(!user){
-            user = await User.create({clerkId:userId});
-            await user.save();
-        }
-
-        return  NextResponse.json(user, {status:200});
-        
-    } catch (error) {
-        console.log("[user GET] ", error);
-        return new NextResponse("internal server error", {status:500});
+    if (!userId) {
+      return new NextResponse(JSON.stringify({ message: "Unauthorized" }), { status: 401 })
     }
+
+    await connect()
+
+    let user = await User.findOne({ clerkId: userId })
+
+    // When the user sign-in for the 1st, immediately we will create a new user for them
+    if (!user) {
+      user = await User.create({ clerkId: userId })
+      await user.save()
+    }
+
+    return NextResponse.json(user, { status: 200 })
+  } catch (err) {
+    console.log("[users_GET]", err)
+    return new NextResponse("Internal Server Error", { status: 500 })
+  }
 }

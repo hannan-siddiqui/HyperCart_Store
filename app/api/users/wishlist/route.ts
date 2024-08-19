@@ -2,13 +2,15 @@ import User from "@/lib/models/User";
 import connect from "@/lib/mondoDB";
 
 
-import { auth } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs/server";
+
 import { revalidatePath } from "next/cache";
 import { NextRequest, NextResponse } from "next/server";
 
 export const POST = async (req: NextRequest) => {
     
   try {
+
     const { userId } = auth()
 
     if (!userId) {
@@ -43,7 +45,9 @@ export const POST = async (req: NextRequest) => {
     
     return NextResponse.json(user, { status: 200 })
   } catch (err) {
+
     console.log("[wishlist_POST]", err);
     return new NextResponse("Internal Server Error", { status: 500 });
+    
   }
 }
