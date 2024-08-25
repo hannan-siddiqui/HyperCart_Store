@@ -1,75 +1,19 @@
 "use client";
 
-import { useUser } from "@clerk/nextjs";
-import { Heart } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import HeartFavorite from "./HeartFavorite";
 
-import { useEffect, useState } from "react";
-import { flushSync } from "react-dom";
+interface ProductCardProps {
+  product: ProductType;
+  updateSignedInUser?: (updatedUser: UserType) => void;
+}
 
-// interface ProductCardProps {
-//   product: ProductType;
-//   updateSignedInUser?: (updatedUser: UserType) => void;
-// }
-
-const ProductCard = ({ product }: { product: ProductType }) => {
-
-  const router = useRouter();
-
-  const user = useUser();
-
-  const [loading, setloading] = useState(false);
-  const [SignedInUser, setsignedInuUser] = useState<UserType | null>(null);
-  const [isLiked, setIsLiked] = useState(false);
-
-  const getUser = async () => {
-    try {
-      setloading(true);
-      const res = await fetch("/api/users");
-      const data = await res.json();
-      setsignedInuUser(data);
-      setIsLiked(data.wishlist.includes(product._id));
-      setloading(false);
-    } catch (err) {
-      console.log("error get user");
-    }
-  };
-
-  useEffect(() => {
-    if (user) {
-      getUser();
-    }
-  }, [user]);
-
-  const handleLike = async (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
-    e.preventDefault();
-
-    try {
-      if (!user) {
-        router.push("/sign-in");
-        return;
-      } else {
-        const res = await fetch("/api/users/wishlist", {
-          method: "POST",
-          body: JSON.stringify({ productId: product._id }),
-        });
-        const updatedUser = await res.json();
-        setIsLiked(updatedUser.wishlist.includes(product._id));
-        // updateSignedInUser && updateSignedInUser(updatedUser);
-      }
-    } catch (err) {
-      console.log("[wishlist_POST]", err);
-    }
-  };
-
+const ProductCard = ({ product, updateSignedInUser }: ProductCardProps ) => {
   return (
     <Link
       href={`/products/${product._id}`}
-      className="w-[220px] flex flex-col gap-2"
+      className="w-[240px] flex flex-col gap-2 bg-gray-700 py-2  p-1 rounded-lg text-gray-200"
     >
       <Image
         src={product.media[0]}
@@ -78,19 +22,13 @@ const ProductCard = ({ product }: { product: ProductType }) => {
         height={300}
         className="h-[250px] rounded-lg object-cover"
       />
-
       <div>
-        <p className="font-bold text-black text-2xl">{product.title}</p>
-        <p className=" font-semibold text-neutral-500">{product.category}</p>
+        <p className="text-xl font-bold">{product.title}</p>
+        <p className="text-sm font-bold ">{product.category}</p>
       </div>
-
       <div className="flex justify-between items-center">
-        <p className="font-bold text-xl text-black">${product.price}</p>
-        
-        <button onClick={handleLike}>
-          <Heart fill={`${isLiked ? "red" : "white"}`} />
-        </button>
-
+        <p className="text-xl font-bold">${product.price}</p>
+        <HeartFavorite product={product} updateSignedInUser={updateSignedInUser} />
       </div>
     </Link>
   );

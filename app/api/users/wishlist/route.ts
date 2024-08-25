@@ -4,7 +4,7 @@ import connect from "@/lib/mondoDB";
 
 import { auth } from "@clerk/nextjs/server";
 
-import { revalidatePath } from "next/cache";
+// import { revalidatePath } from "next/cache";
 import { NextRequest, NextResponse } from "next/server";
 
 export const POST = async (req: NextRequest) => {
