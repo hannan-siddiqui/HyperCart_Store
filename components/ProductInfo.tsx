@@ -4,6 +4,7 @@ import { useState } from "react";
 
 import { MinusCircle, PlusCircle } from "lucide-react";
 import HeartFavorite from "./HeartFavorite";
+import useCart from "@/lib/hooks/useCart";
 
 
 
@@ -19,30 +20,30 @@ const ProductInfo = ({ productInfo }: { productInfo: ProductType }) => {
 
   const [quantity, setQuantity] = useState<number>(1);
 
-//   const cart = useCart();
+  const cart = useCart();
 
   return (
     <div className="max-w-[400px] flex flex-col gap-4">
       <div className="flex justify-between items-center">
-        <p className="font-bold text-2xl">{productInfo.title}</p>
+        <p className="font-bold text-xl">{productInfo.title}</p>
         <HeartFavorite product={productInfo} />
       </div>
 
       <div className="flex gap-2">
-        <p className="font-medium text-lg text-gray-400">Category:</p>
-        <p className="font-bold text-2xl">{productInfo.category}</p>
+        <p className="font-medium text-lg text-gray-700">Category:</p>
+        <p className="font-bold text-xl">{productInfo.category}</p>
       </div>
 
       <p className="font-bold text-2xl">$ {productInfo.price}</p>
 
       <div className="flex flex-col gap-2">
-        <p className="font-medium text-lg text-gray-400">Description:</p>
-        <p className="text-sm font-bold">{productInfo.description}</p>
+        <p className="font-medium text-lg text-gray-700">Description:</p>
+        <p className="text-sm font-semibold">{productInfo.description}</p>
       </div>
 
       {productInfo.colors.length > 0 && (
         <div className="flex flex-col gap-2">
-          <p className="text-lg font-semibold text-gray-300">Colors:</p>
+          <p className="text-lg font-semibold text-gray-700">Colors:</p>
           <div className="flex gap-2">
             {productInfo.colors.map((color, index) => (
               <p
@@ -79,7 +80,7 @@ const ProductInfo = ({ productInfo }: { productInfo: ProductType }) => {
       )}
 
       <div className="flex flex-col gap-2">
-        <p className="text-base-medium text-grey-2">Quantity:</p>
+        <p className="text-lg text-grey-2">Quantity:</p>
         <div className="flex gap-4 items-center">
           <MinusCircle
             className="hover:text-red-1 cursor-pointer"
@@ -94,15 +95,15 @@ const ProductInfo = ({ productInfo }: { productInfo: ProductType }) => {
       </div>
 
       <button
-        className="outline text-xl font-bold py-3 rounded-lg hover:bg-black hover:text-white"
-        // onClick={() => {
-        //   cart.addItem({
-        //     item: productInfo,
-        //     quantity,
-        //     color: selectedColor,
-        //     size: selectedSize,
-        //   });
-        // }}
+        className="outline text-xl font-bold py-2 rounded-lg hover:bg-black hover:text-white"
+        onClick={() => {
+          cart.addItem({
+            item: productInfo,
+            quantity,
+            color: selectedColor,
+            size: selectedSize,
+          });
+        }}
       >
         Add To Cart
       </button>

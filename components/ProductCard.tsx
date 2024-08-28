@@ -13,7 +13,7 @@ const ProductCard = ({ product, updateSignedInUser }: ProductCardProps ) => {
   return (
     <Link
       href={`/products/${product._id}`}
-      className="w-[240px] flex flex-col gap-2 bg-gray-700 py-2  p-1 rounded-lg text-gray-200"
+      className="w-[240px] flex flex-col gap-2  bg-white text-black border border-neutral-600 rounded-lg "
     >
       <Image
         src={product.media[0]}
@@ -22,13 +22,13 @@ const ProductCard = ({ product, updateSignedInUser }: ProductCardProps ) => {
         height={300}
         className="h-[250px] rounded-lg object-cover"
       />
-      <div>
+      <div className="ml-2">
         <p className="text-xl font-bold">{product.title}</p>
         <p className="text-sm font-bold ">{product.category}</p>
       </div>
       <div className="flex justify-between items-center">
-        <p className="text-xl font-bold">${product.price}</p>
-        <HeartFavorite product={product} updateSignedInUser={updateSignedInUser} />
+        <p className="text-xl ml-2  font-bold">${product.price}</p>
+        <div className="mr-2"><HeartFavorite  product={product} updateSignedInUser={updateSignedInUser} /></div>
       </div>
     </Link>
   );
