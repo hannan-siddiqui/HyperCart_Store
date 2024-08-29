@@ -1,10 +1,10 @@
-import { getCollection } from "@/lib/actions";
+import { getCollections } from "@/lib/action/actions";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
 const Collections = async () => {
-  const collections = await getCollection();
+  const collections = await getCollections();
 
   return (
     <div className="  flex flex-col gap-10 py-8 pb-20  bg-[#ded2d2]">

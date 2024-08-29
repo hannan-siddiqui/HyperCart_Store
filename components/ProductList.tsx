@@ -1,4 +1,4 @@
-import { getProducts } from "@/lib/actions";
+import { getProducts } from "@/lib/action/actions";
 import ProductCard from "./ProductCard";
 
 

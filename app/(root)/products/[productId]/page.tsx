@@ -3,7 +3,7 @@ import Gallery from "@/components/Gallery"
 import ProductCard from "@/components/ProductCard"
 import ProductInfo from "@/components/ProductInfo"
 
-import { getProductDetails } from "@/lib/actions"
+import { getProductDetails } from "@/lib/action/actions"
 
 
 const ProductDetails = async ({ params }: { params: { productId: string }}) => {

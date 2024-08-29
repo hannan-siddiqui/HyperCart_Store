@@ -2,7 +2,7 @@
 
 import useCart from "@/lib/hooks/useCart";
 import { UserButton, useUser } from "@clerk/nextjs";
-import { CircleUserRound, Menu, ShoppingCart } from "lucide-react";
+import { CircleUserRound, Search, Menu, ShoppingCart } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -23,10 +23,10 @@ const Navbar = () => {
 
       <Link href="/">
         {/* <Image src="/path/to/logo.png" alt="logo" width={130} height={100} /> */}
-        <h1 className="text-red-700 font-extrabold text-2xl ml-6">Hyper_Cart</h1>
+        <h1 className="text-red-700 font-extrabold text-lg md:text-xl ml-1 md:ml-6">Hyper_Cart</h1>
       </Link>
 
-      <div className="flex gap-4 text-base-bold max-lg:hidden">
+      <div className="flex gap-4  max-lg:hidden">
         <Link
           href="/"
           className={`hover:text-red-500 mx-6  ${pathname === "/" && "text-red-500"}`}
@@ -47,6 +47,22 @@ const Navbar = () => {
           Orders
         </Link>
       </div>
+
+      <div className="flex gap-3 border border-gray-400 px-3 py-1 items-center rounded-lg">
+        <input
+          className="outline-none max-sm:max-w-[100px]"
+          placeholder="Search..."
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+        />
+        <button
+          disabled={query === ""}
+          onClick={() => router.push(`/search/${query}`)}
+        >
+          <Search className="cursor-pointer h-4 w-4 hover:text-red-500" />
+        </button>
+      </div>
+
 
       <div className="relative flex gap-3 items-center">
         <Link
@@ -94,7 +110,7 @@ const Navbar = () => {
           </div>
         )}
 
-        <div className="mr-10">
+        <div className="mr-2 md:mr-10">
         {user ? (
           <UserButton afterSignOutUrl="/sign-in" />
         ) : (
