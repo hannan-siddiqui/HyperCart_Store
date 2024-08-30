@@ -11,7 +11,7 @@ const Orders = async () => {
   const { userId } = auth();
   const orders = await getOrders(userId as string);
 
-  console.log(orders[0].products);
+
 
   return (
     <div className="px-10 py-5 max-sm:px-3">
@@ -25,9 +25,9 @@ const Orders = async () => {
         {orders?.map((order: OrderType) => (
           <div className="flex flex-col gap-8 p-4 hover:bg-grey-1">
             <div className="flex gap-20 max-md:flex-col max-md:gap-3">
-              <p className="text-base-bold">Order ID: {order._id}</p>
+              <p className="text-base-bold">Order ID: {order?._id}</p>
               <p className="text-base-bold">
-                Total Amount: ${order.totalAmount}
+                Total Amount: ${order?.totalAmount}
               </p>
             </div>
 
@@ -35,8 +35,8 @@ const Orders = async () => {
               {order.products.map((orderItem: OrderItemType) => (
                 <div className="flex gap-4">
                   <Image
-                    src={orderItem.product.media[0]}
-                    alt={orderItem.product.title}
+                    src={orderItem?.product?.media[0]}
+                    alt={orderItem?.product?.title}
                     width={100}
                     height={100}
                     className="w-32 h-32 object-cover rounded-lg"
@@ -45,14 +45,14 @@ const Orders = async () => {
                     <p className="text-small-medium">
                       Title:{" "}
                       <span className="text-small-bold">
-                        {orderItem.product.title}
+                        {orderItem?.product?.title}
                       </span>
                     </p>
                     {orderItem.color && (
                       <p className="text-small-medium">
                         Color:{" "}
                         <span className="text-small-bold">
-                          {orderItem.color}
+                          {orderItem?.color}
                         </span>
                       </p>
                     )}
@@ -60,17 +60,17 @@ const Orders = async () => {
                       <p className="text-small-medium">
                         Size:{" "}
                         <span className="text-small-bold">
-                          {orderItem.size}
+                          {orderItem?.size}
                         </span>
                       </p>
                     )}
                     <p className="text-small-medium">
                       Unit price:{" "}
-                      <span className="text-small-bold">{orderItem.product.price}</span>
+                      <span className="text-small-bold">{orderItem?.product?.price}</span>
                     </p>
                     <p className="text-small-medium">
                       Quantity:{" "}
-                      <span className="text-small-bold">{orderItem.quantity}</span>
+                      <span className="text-small-bold">{orderItem?.quantity}</span>
                     </p>
                   </div>
                 </div>

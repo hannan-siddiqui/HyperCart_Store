@@ -36,8 +36,8 @@ const Wishlist = () => {
     if (!signedInUser) return
 
     const wishlistProducts = await Promise.all(signedInUser.wishlist.map(async (productId) => {
-      const res = await getProductDetails(productId)
-      return res
+      const res = await getProductDetails(productId);
+      return res;
     }))
 
     setWishlist(wishlistProducts)
@@ -58,13 +58,13 @@ const Wishlist = () => {
   return loading ? <Loader /> : (
     <div className="px-10 py-5">
       <p className="text-heading3-bold my-10">Your Wishlist</p>
-      {wishlist.length === 0 && (
+      {wishlist?.length === 0 && (
         <p>No items in your wishlist</p>
       )}
 
       <div className="flex flex-wrap justify-center gap-16">
         {wishlist.map((product) => (
-          <ProductCard key={product._id} product={product} updateSignedInUser={updateSignedInUser}/>
+          <ProductCard key={product?._id} product={product} updateSignedInUser={updateSignedInUser}/>
         ))}
       </div>
     </div>
